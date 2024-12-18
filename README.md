@@ -2,27 +2,19 @@
 
 
 
-## Available Scripts
-
-In the project directory, you can run:
-
+## Scripts
 
 ### `npm run dev`
-
-Runs the app in the development mode.
+Start the development server and run the app in development mode.
+- Automatically reloads the page when edits are made.
+- Displays linting errors directly in the console for easy debugging.
 
 ### `npm run preview`
-
-Runs the app in the production mode.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Run the app in production mode to preview the final build.
 
 ### `npm run build`
+Build the app for production by bundling files into the `build` folder.
+- Produces an optimized build tailored for high performance in production.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-
-### CSS utiitites
-The project uses [tailwind](https://tailwindcss.com) CSS utility for rapid style changes.
+## Styling
+The project utilizes [Tailwind CSS](https://tailwindcss.com), a utility-first CSS framework, enabling rapid and consistent styling for your app.
