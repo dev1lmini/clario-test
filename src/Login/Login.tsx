@@ -1,8 +1,15 @@
-import { ChangeEventHandler, memo, useCallback, useRef } from "react"
+import {
+  ChangeEventHandler,
+  memo,
+  useCallback,
+  useReducer,
+  useRef
+} from "react"
 import { Button, Input } from "../uikit"
 import { useFormik } from "formik"
 import { object, string } from "yup"
-
+import eyeIcon from "./assets/eye.svg"
+import eyeSlashIcon from "./assets/eye-slash.svg"
 import { twMerge } from "tailwind-merge"
 
 const rules = [
@@ -69,6 +76,8 @@ export const Login = memo(() => {
     }
   })
 
+  const [showPassword, togglePassword] = useReducer(state => !state, false)
+
   // Store errors to access it avoiding re-renders
   const errorsRef = useRef(errors)
   errorsRef.current = errors
@@ -105,9 +114,17 @@ export const Login = memo(() => {
             error={
               (touched.password || !!submitCount) && Boolean(errors.password)
             }
+            action={
+              <button type="button" onClick={togglePassword}>
+                <img
+                  src={showPassword ? eyeIcon : eyeSlashIcon}
+                  alt={showPassword ? "Hide password" : "Show password"}
+                />
+              </button>
+            }
             name="password"
             value={password}
-            type="password"
+            type={showPassword ? "text" : "password"}
             placeholder="Password"
           />
           <ul className="pl-5 gap-1 w-full">
@@ -115,7 +132,7 @@ export const Login = memo(() => {
               <li
                 key={message}
                 className={twMerge(
-                "text-xs text-midnight leading-5",
+                  "text-xs text-midnight leading-5",
                   regex.test(password) && "text-emerald",
                   errors.password &&
                     (touched.password || !!submitCount) &&
