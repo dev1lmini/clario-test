@@ -3,20 +3,22 @@ import {
   DetailedHTMLProps,
   forwardRef,
   InputHTMLAttributes,
-  memo
+  memo,
+  ReactNode
 } from "react"
 
 type Props = DetailedHTMLProps<
   InputHTMLAttributes<HTMLInputElement>,
   HTMLInputElement
 > & {
-  error?: string | boolean
+  error?: string | boolean;
+  action?: ReactNode
   valid?: boolean
 }
 
 export const Input = memo(
   forwardRef<HTMLInputElement, Props>(
-    ({ error, valid, ...props }, ref) => {
+    ({ error, valid, action, ...props }, ref) => {
       return (
         <fieldset className="flex flex-col gap-2 relative w-full">
           <input
@@ -25,7 +27,8 @@ export const Input = memo(
               error &&
                 "bg-blush border-coral text-coral placeholder:text-coral outline-coral",
               valid &&
-                "border-emerald text-emerald focus:border-emerald outline-emerald"
+                "border-emerald text-emerald focus:border-emerald outline-emerald",
+                action && "pr-11"
             )}
             ref={ref}
             {...props}
@@ -33,6 +36,7 @@ export const Input = memo(
           {error && typeof error === "string" && (
             <p className="text-xs text-coral pl-5">{error}</p>
           )}
+          {action && <div className="w-6 absolute right-5 top-0 h-full flex items-center">{action}</div>}
         </fieldset>
       )
     }
